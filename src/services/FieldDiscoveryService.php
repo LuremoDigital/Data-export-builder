@@ -917,7 +917,7 @@ final class FieldDiscoveryService extends Component
             'entries' => ['title', 'slug', 'uri'],
             'users' => ['username', 'email', 'fullName', 'friendlyName'],
             'categories', 'tags' => ['title', 'slug', 'uri'],
-            'assets' => ['title', 'filename', 'kind', 'mimeType'],
+            'assets' => ['title', 'filename', 'kind'],
             'orders' => ['number', 'reference', 'email', 'currency', 'isCompleted'],
             CapabilityHelper::ELEMENT_TYPE_PRODUCTS => ['title', 'slug', 'uri'],
             CapabilityHelper::ELEMENT_TYPE_VARIANTS => ['title', 'sku', 'price', 'stock', 'isAvailable'],
