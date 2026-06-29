@@ -268,16 +268,74 @@
 }
 
 .deb-available-group h3 {
-    margin: 0 0 12px;
-    font-size: 12px;
-    letter-spacing: 0.08em;
+    margin: 0;
+    font-size: 13px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: #6d7e90;
+}
+
+.deb-available-group__toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin: 0 0 12px;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+}
+
+.deb-available-group.is-collapsed .deb-available-group__toggle {
+    margin-bottom: 0;
+}
+
+.deb-available-group__toggle h3 {
+    flex: 1 1 auto;
+}
+
+.deb-available-group__toggle:focus-visible {
+    outline: 2px solid var(--primary-color, #dc2626);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.deb-available-group__count {
+    flex: 0 0 auto;
+    min-width: 20px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: #e5ecf3;
+    color: #6d7e90;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: center;
+}
+
+.deb-available-group__chevron {
+    flex: 0 0 auto;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #9aa7b5;
+    transition: transform 0.15s ease;
+}
+
+.deb-available-group.is-collapsed .deb-available-group__chevron {
+    transform: rotate(-90deg);
 }
 
 .deb-available-group__list {
     display: grid;
     gap: 8px;
+}
+
+.deb-available-group.is-collapsed .deb-available-group__list {
+    display: none;
 }
 
 .deb-available-field {

@@ -213,7 +213,17 @@
             groups[field.group].push(field);
         });
 
-        const html = Object.keys(groups).sort(compareGroups).map((group) => {
+        const groupNames = Object.keys(groups).sort(compareGroups);
+
+        // Track which groups are expanded across re-renders. Default to the
+        // first group open and the rest collapsed so the list isn't a wall of
+        // every field at once; an active search expands every matching group.
+        if (!root._expandedGroups) {
+            root._expandedGroups = new Set(groupNames.slice(0, 1));
+        }
+
+        const html = groupNames.map((group) => {
+            const isExpanded = !!searchTerm || root._expandedGroups.has(group);
             const fields = groups[group].map((field) => {
                 const isSelected = selected.has(field.path);
                 return [
@@ -230,7 +240,16 @@
                 ].join('');
             }).join('');
 
-            return '<section class="deb-available-group"><h3>' + escapeHtml(group) + '</h3><div class="deb-available-group__list">' + fields + '</div></section>';
+            return [
+                '<section class="deb-available-group' + (isExpanded ? '' : ' is-collapsed') + '" data-group="' + escapeHtml(group) + '">',
+                '<button type="button" class="deb-available-group__toggle" data-group-toggle="' + escapeHtml(group) + '" aria-expanded="' + (isExpanded ? 'true' : 'false') + '">',
+                '<h3>' + escapeHtml(group) + '</h3>',
+                '<span class="deb-available-group__count">' + groups[group].length + '</span>',
+                '<span class="deb-available-group__chevron" aria-hidden="true"></span>',
+                '</button>',
+                '<div class="deb-available-group__list">' + fields + '</div>',
+                '</section>'
+            ].join('');
         }).join('');
 
         target.innerHTML = html || '<p class="light">No matching fields for this element type.</p>';
@@ -630,6 +649,17 @@
         root.addEventListener('click', function (event) {
             const target = event.target.closest('button');
             if (!target) {
+                return;
+            }
+
+            if (target.hasAttribute('data-group-toggle')) {
+                const name = target.getAttribute('data-group-toggle');
+                if (root._expandedGroups && root._expandedGroups.has(name)) {
+                    root._expandedGroups.delete(name);
+                } else {
+                    (root._expandedGroups = root._expandedGroups || new Set()).add(name);
+                }
+                renderAvailableFields(root);
                 return;
             }
 
