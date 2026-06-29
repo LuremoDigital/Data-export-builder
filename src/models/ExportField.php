@@ -26,16 +26,4 @@ final class ExportField extends Model
         ];
     }
 
-    public function toArray(array $fields = [], array $expand = [], $recursive = true)
-    {
-        return [
-            'id' => $this->id,
-            'uid' => $this->uid,
-            'templateId' => $this->templateId,
-            'fieldPath' => $this->fieldPath,
-            'columnLabel' => $this->columnLabel,
-            'sortOrder' => $this->sortOrder,
-            'settings' => $this->settings,
-        ];
-    }
 }
