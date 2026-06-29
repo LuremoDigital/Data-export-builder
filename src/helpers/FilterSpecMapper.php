@@ -130,7 +130,7 @@ final class FilterSpecMapper
         }
 
         $relations = [];
-        foreach (array_slice($value, 0, 5) as $row) {
+        foreach ($value as $row) {
             if (!is_array($row)) {
                 continue;
             }
