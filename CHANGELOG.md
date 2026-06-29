@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.0 - 2026-06-29
+
+### Added
+- advanced filter builder: match custom-field values and require element relations before rows enter the export, with per-type operators (equals, contains, is not empty)
+- collapsible field-picker groups with field counts, so large field sets (custom fields, matrix paths) no longer render as one long flat list
+
+### Changed
+- the export editor now has a persistent sticky Save bar that stays reachable from anywhere on the page instead of a button buried in the first card
+- the Exports index leads with the templates list; the Pro upsell moved below it
+- trimmed duplicate "Pro" messaging on the editor and bumped field-group headings for clearer hierarchy
+
+### Fixed
+- fixed a field-picker initialisation crash (relation-filter attribute collision) that left the picker unresponsive, so no export columns could be selected on a new template
+- removed the unsupported `mimeType` asset filter that could fail an export run
+- reset field-group expansion state when the element type changes
+
 ## 1.0.1 - 2026-06-29
 
 - switched edition gating from environment variables to native Craft plugin editions
