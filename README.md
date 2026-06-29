@@ -54,7 +54,7 @@ Built for agencies, freelancers, and in-house Craft teams that repeatedly need c
 - Craft CMS 5.0+
 - Craft queue configured (for larger exports)
 - Craft Commerce (optional, for order/product/variant exports)
-- Formie or Wheelform (optional, for form submission exports)
+- Formie or Wheelform (optional, for form submission exports — Pro edition)
 
 ## Installation
 

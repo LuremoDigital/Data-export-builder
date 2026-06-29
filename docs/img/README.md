@@ -1,9 +1,11 @@
 # Screenshots
 
-Drop release screenshots here, then uncomment the image block in the project
-`README.md` under **## Screenshots**.
+These screenshots are referenced by the project `README.md` under
+**## Screenshots**. To refresh them, regenerate the PNGs at the same paths
+(PNG, ~1600px wide, Control Panel light theme); the README picks them up
+automatically.
 
-Expected files (PNG, ~1600px wide, Control Panel light theme):
+Files:
 
 - `templates-index.png` — the Exports index listing saved templates
 - `template-builder.png` — template builder with the field picker open
