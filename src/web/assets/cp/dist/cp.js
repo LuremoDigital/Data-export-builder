@@ -218,6 +218,8 @@
         // Track which groups are expanded across re-renders. Default to the
         // first group open and the rest collapsed so the list isn't a wall of
         // every field at once; an active search expands every matching group.
+        // loadPayload() resets this to null on element-type change so the
+        // first group of the new set opens instead of everything staying shut.
         if (!root._expandedGroups) {
             root._expandedGroups = new Set(groupNames.slice(0, 1));
         }
@@ -586,6 +588,10 @@
             })
             .then((payload) => {
                 root._payload = payload;
+                // New element type means a new set of field groups; reset the
+                // expanded-group state so renderAvailableFields re-seeds the
+                // first group open instead of leaving everything collapsed.
+                root._expandedGroups = null;
                 syncFilterOptions(root);
                 renderAvailableFields(root);
                 updateFilterVisibility(root);
