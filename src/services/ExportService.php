@@ -10,6 +10,7 @@ use craft\base\ElementInterface;
 use craft\elements\db\ElementQueryInterface;
 use craft\helpers\Db;
 use Luremo\DataExportBuilder\helpers\CapabilityHelper;
+use Luremo\DataExportBuilder\helpers\DateFilterHelper;
 use Luremo\DataExportBuilder\helpers\ExportFileHelper;
 use Luremo\DataExportBuilder\helpers\FilterApplier;
 use Luremo\DataExportBuilder\helpers\FilterSpecMapper;
@@ -151,27 +152,6 @@ final class ExportService extends Component
         return $count > $threshold;
     }
 
-    public function buildCsvContent(array $headers, array $rows): string
-    {
-        $handle = fopen('php://temp', 'rb+');
-        fputcsv($handle, $headers);
-
-        foreach ($rows as $row) {
-            fputcsv($handle, $row);
-        }
-
-        rewind($handle);
-        $content = stream_get_contents($handle) ?: '';
-        fclose($handle);
-
-        return $content;
-    }
-
-    public function buildJsonContent(array $rows): string
-    {
-        return json_encode($rows, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?: '[]';
-    }
-
     public function buildSourceQuery(ExportTemplate $template): mixed
     {
         if ($template->elementType === CapabilityHelper::ELEMENT_TYPE_WHEELFORM_SUBMISSIONS) {
@@ -219,8 +199,8 @@ final class ExportService extends Component
             }
         }
 
-        $dateFrom = $this->normalizeDateFilter($template->filters['dateFrom'] ?? null);
-        $dateTo = $this->normalizeDateFilter($template->filters['dateTo'] ?? null);
+        $dateFrom = DateFilterHelper::normalizeDateInput($template->filters['dateFrom'] ?? null);
+        $dateTo = DateFilterHelper::normalizeDateInput($template->filters['dateTo'] ?? null);
         if (($dateFrom || $dateTo) && method_exists($query, 'dateCreated')) {
             // Leading 'and' is required: a Craft element-query array param without
             // it defaults to OR, so a from+to range would match (after-from OR
@@ -409,70 +389,6 @@ final class ExportService extends Component
         return $row;
     }
 
-    private function normalizeDateFilter(mixed $value): ?string
-    {
-        if (is_string($value)) {
-            return $this->normalizeDateString($value);
-        }
-
-        if (!is_array($value)) {
-            return null;
-        }
-
-        $year = trim((string)($value['year'] ?? ''));
-        $month = trim((string)($value['month'] ?? ''));
-        $day = trim((string)($value['day'] ?? ''));
-
-        if ($year !== '' && $month !== '' && $day !== '') {
-            return sprintf('%04d-%02d-%02d', (int)$year, (int)$month, (int)$day);
-        }
-
-        foreach ($this->flattenScalarValues($value) as $candidate) {
-            $normalized = $this->normalizeDateString($candidate);
-            if ($normalized !== null) {
-                return $normalized;
-            }
-        }
-
-        return null;
-    }
-
-    private function normalizeDateString(string $value): ?string
-    {
-        $value = trim($value);
-        if ($value === '') {
-            return null;
-        }
-
-        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value) === 1) {
-            return $value;
-        }
-
-        if (preg_match('/^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}(:\d{2})?$/', $value) === 1) {
-            return substr($value, 0, 10);
-        }
-
-        $timestamp = strtotime($value);
-
-        return $timestamp !== false ? date('Y-m-d', $timestamp) : null;
-    }
-
-    /**
-     * @return string[]
-     */
-    private function flattenScalarValues(array $value): array
-    {
-        $results = [];
-
-        array_walk_recursive($value, static function (mixed $item) use (&$results): void {
-            if (is_scalar($item) || $item instanceof \Stringable) {
-                $results[] = (string)$item;
-            }
-        });
-
-        return $results;
-    }
-
     private function buildWheelformMessageQuery(ExportTemplate $template): mixed
     {
         if (!CapabilityHelper::isWheelFormInstalled()) {
@@ -494,12 +410,12 @@ final class ExportService extends Component
             ->with(['value.field', 'form'])
             ->orderBy(['dateCreated' => SORT_DESC, 'id' => SORT_DESC]);
 
-        $dateFrom = $this->normalizeDateFilter($template->filters['dateFrom'] ?? null);
+        $dateFrom = DateFilterHelper::normalizeDateInput($template->filters['dateFrom'] ?? null);
         if ($dateFrom !== null) {
             $query->andWhere(['>=', 'dateCreated', $dateFrom . ' 00:00:00']);
         }
 
-        $dateTo = $this->normalizeDateFilter($template->filters['dateTo'] ?? null);
+        $dateTo = DateFilterHelper::normalizeDateInput($template->filters['dateTo'] ?? null);
         if ($dateTo !== null) {
             $query->andWhere(['<=', 'dateCreated', $dateTo . ' 23:59:59']);
         }
@@ -528,8 +444,8 @@ final class ExportService extends Component
             ->formId($formId)
             ->orderBy(['elements.dateCreated' => SORT_DESC, 'elements.id' => SORT_DESC]);
 
-        $dateFrom = $this->normalizeDateFilter($template->filters['dateFrom'] ?? null);
-        $dateTo = $this->normalizeDateFilter($template->filters['dateTo'] ?? null);
+        $dateFrom = DateFilterHelper::normalizeDateInput($template->filters['dateFrom'] ?? null);
+        $dateTo = DateFilterHelper::normalizeDateInput($template->filters['dateTo'] ?? null);
         if (($dateFrom || $dateTo) && method_exists($query, 'dateCreated')) {
             // Leading 'and' is required: a Craft element-query array param without
             // it defaults to OR, so a from+to range would match (after-from OR
