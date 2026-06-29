@@ -1,3 +1,8 @@
 vendor
 .gstack/
 .idea
+
+# local planning / working notes (not part of the distributed plugin)
+/agents.md
+/TODOS.md
+/docs/designs/
