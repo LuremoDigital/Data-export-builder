@@ -203,6 +203,21 @@
     margin-top: 20px;
 }
 
+.deb-save-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: var(--gray-050, #f3f7fc);
+    border: 1px solid var(--hairline-color, rgba(31, 41, 51, 0.1));
+    border-radius: var(--large-border-radius, 8px);
+    box-shadow: 0 -2px 12px rgba(31, 41, 51, 0.08);
+}
+
 .deb-field-picker {
     display: grid;
     gap: 20px;
