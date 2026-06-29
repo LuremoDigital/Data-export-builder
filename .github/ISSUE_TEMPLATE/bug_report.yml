@@ -1,0 +1,113 @@
+name: Bug report
+description: Report a reproducible problem with Data Export Builder
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please fill in as much detail as you can — reproduction steps and version info are what let us fix it quickly.
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Before you start
+      options:
+        - label: I searched [existing issues](https://github.com/LuremoDigital/Data-export-builder/issues?q=is%3Aissue) and this has not been reported.
+          required: true
+        - label: I am running the latest version of the plugin (or have noted my version below).
+          required: true
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      placeholder: e.g. 1.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: edition
+    attributes:
+      label: Plugin edition
+      options:
+        - Standard
+        - Pro
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: craft-version
+    attributes:
+      label: Craft CMS version
+      placeholder: e.g. 5.6.0
+    validations:
+      required: true
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+      placeholder: e.g. 8.2.15
+    validations:
+      required: false
+  - type: dropdown
+    id: element-type
+    attributes:
+      label: Element type involved
+      description: Which export source were you working with?
+      options:
+        - Entries
+        - Users
+        - Categories
+        - Tags
+        - Assets
+        - Commerce Orders
+        - Commerce Products
+        - Commerce Variants
+        - Formie Submissions
+        - Wheelform Submissions
+        - Not applicable / unknown
+    validations:
+      required: false
+  - type: dropdown
+    id: format
+    attributes:
+      label: Output format
+      options:
+        - CSV
+        - JSON
+        - XLSX
+        - Not applicable
+    validations:
+      required: false
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug, including what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps that reliably reproduce the problem.
+      placeholder: |
+        1. Create a template for '...'
+        2. Add fields '...'
+        3. Run the export
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or error messages
+      description: Paste anything from `storage/logs/` or the failed run's error message. This is automatically formatted as code.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Anything else that might help — screenshots, custom field types, queue configuration, etc.
+    validations:
+      required: false
