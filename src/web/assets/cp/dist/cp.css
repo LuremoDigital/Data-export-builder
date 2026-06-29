@@ -75,6 +75,77 @@
     color: #5c6b7a;
 }
 
+.deb-card__header--inline,
+.deb-section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.deb-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: #edf4fb;
+    color: #163955;
+    font-size: 12px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.deb-section-heading h3 {
+    margin: 0 0 4px;
+    font-size: 15px;
+}
+
+.deb-section-heading p {
+    margin: 0;
+    color: #5c6b7a;
+}
+
+.deb-filter-state {
+    border: 1px solid #d7e2ee;
+    border-radius: 8px;
+    background: #f7f9fc;
+    color: #4c6178;
+    padding: 10px 12px;
+}
+
+.deb-filter-state.hidden {
+    display: none;
+}
+
+.deb-filter-state--error {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border-color: #d94d4d;
+    background: #fff5f5;
+    color: #8f2525;
+}
+
+.deb-filter-rows {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.deb-filter-row {
+    display: grid;
+    grid-template-columns: minmax(140px, 1fr) minmax(130px, 0.75fr) minmax(160px, 1fr) auto;
+    gap: 10px;
+    align-items: center;
+}
+
+[data-relation-row].deb-filter-row {
+    grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr) auto;
+}
+
 .deb-form-grid {
     display: grid;
     gap: 18px;
@@ -132,6 +203,21 @@
     margin-top: 20px;
 }
 
+.deb-save-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: var(--gray-050, #f3f7fc);
+    border: 1px solid var(--hairline-color, rgba(31, 41, 51, 0.1));
+    border-radius: var(--large-border-radius, 8px);
+    box-shadow: 0 -2px 12px rgba(31, 41, 51, 0.08);
+}
+
 .deb-field-picker {
     display: grid;
     gap: 20px;
@@ -182,16 +268,74 @@
 }
 
 .deb-available-group h3 {
-    margin: 0 0 12px;
-    font-size: 12px;
-    letter-spacing: 0.08em;
+    margin: 0;
+    font-size: 13px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: #6d7e90;
+}
+
+.deb-available-group__toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin: 0 0 12px;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+}
+
+.deb-available-group.is-collapsed .deb-available-group__toggle {
+    margin-bottom: 0;
+}
+
+.deb-available-group__toggle h3 {
+    flex: 1 1 auto;
+}
+
+.deb-available-group__toggle:focus-visible {
+    outline: 2px solid var(--primary-color, #dc2626);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.deb-available-group__count {
+    flex: 0 0 auto;
+    min-width: 20px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: #e5ecf3;
+    color: #6d7e90;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: center;
+}
+
+.deb-available-group__chevron {
+    flex: 0 0 auto;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid #9aa7b5;
+    transition: transform 0.15s ease;
+}
+
+.deb-available-group.is-collapsed .deb-available-group__chevron {
+    transform: rotate(-90deg);
 }
 
 .deb-available-group__list {
     display: grid;
     gap: 8px;
+}
+
+.deb-available-group.is-collapsed .deb-available-group__list {
+    display: none;
 }
 
 .deb-available-field {
@@ -310,9 +454,15 @@
 
 @media (max-width: 800px) {
     .deb-form-grid,
+    .deb-filter-row,
     .deb-field-picker,
     .deb-page {
         grid-template-columns: minmax(0, 1fr);
+    }
+
+    .deb-card__header--inline,
+    .deb-section-heading {
+        display: grid;
     }
 }
 
