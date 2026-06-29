@@ -37,7 +37,7 @@ final class FieldPickerMarkupTest extends TestCase
         // Individual relation rows are the .deb-filter-row elements inside the
         // [data-relation-filter-rows] container. They must carry data-relation-row.
         self::assertMatchesRegularExpression(
-            '/<div class="deb-filter-row" data-relation-row>/',
+            '/<div\b(?=[^>]*\bclass="[^"]*\bdeb-filter-row\b[^"]*")(?=[^>]*\bdata-relation-row\b)[^>]*>/',
             $edit,
             'Relation rows must use data-relation-row.'
         );
@@ -45,7 +45,7 @@ final class FieldPickerMarkupTest extends TestCase
         // The crash returns the moment a .deb-filter-row reuses the wrapper's
         // data-relation-filter-row attribute again.
         self::assertDoesNotMatchRegularExpression(
-            '/class="deb-filter-row"[^>]*\bdata-relation-filter-row\b/',
+            '/<div\b(?=[^>]*\bclass="[^"]*\bdeb-filter-row\b[^"]*")(?=[^>]*\bdata-relation-filter-row\b)[^>]*>/',
             $edit,
             'A relation row must not reuse the wrapper attribute data-relation-filter-row.'
         );

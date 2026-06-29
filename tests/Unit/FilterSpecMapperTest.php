@@ -89,4 +89,26 @@ final class FilterSpecMapperTest extends TestCase
         self::assertSame([], $plan['fieldConditions']);
         self::assertSame([], $plan['relations']);
     }
+
+    public function testRelationFiltersAreNotSilentlyTruncated(): void
+    {
+        $relations = [];
+        for ($index = 1; $index <= 6; $index++) {
+            $relations[] = ['field' => 'topics', 'targetIds' => [(string)$index]];
+        }
+
+        $plan = FilterSpecMapper::toPlan(
+            [
+                'relations' => $relations,
+            ],
+            [],
+            [
+                ['handle' => 'topics'],
+            ],
+            []
+        );
+
+        self::assertCount(6, $plan['relations']);
+        self::assertSame([6], $plan['relations'][5]['targetIds']);
+    }
 }
