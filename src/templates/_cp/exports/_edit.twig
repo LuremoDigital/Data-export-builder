@@ -210,12 +210,6 @@
                                 errors: template.getErrors('settings')
                             }) }}
                         </div>
-
-                        {% if not isProEdition %}
-                            <div class="readable light">
-                                <p><strong>Pro unlocks:</strong> XLSX exports, custom queue thresholds, scheduled runs, email delivery, webhook delivery, volume delivery, and Commerce export workflows.</p>
-                            </div>
-                        {% endif %}
                     </div>
 
                     <section class="deb-card deb-card--subtle{% if not (fieldPayload.supportsFieldConditionFilter ?? false) and not (fieldPayload.supportsRelationFilter ?? false) %} hidden{% endif %}" data-advanced-filter-card>
