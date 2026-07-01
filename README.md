@@ -40,6 +40,14 @@ Built for agencies, freelancers, and in-house Craft teams that repeatedly need c
 † Pro edition; available when the [Formie](https://plugins.craftcms.com/formie) or [Wheelform](https://plugins.craftcms.com/wheelform) plugin is installed and enabled.
 ‡ Requires [Craft Commerce](https://plugins.craftcms.com/commerce) and the Pro edition.
 
+## Supported Output Formats
+
+| Format | Standard | Pro |
+| ------ | :------: | :-: |
+| CSV    |    ✓     |  ✓  |
+| JSON   |    ✓     |  ✓  |
+| XLSX   |    —     |  ✓  |
+
 ## Requirements
 
 - PHP 8.2+
@@ -82,14 +90,6 @@ Then grant the plugin permissions to the right user groups.
 - ♻️ **Reuse everything** — save export templates and run them again on demand.
 - ⏱️ **Scale safely** — small exports run immediately; larger ones queue and download later from run history.
 - 🤖 **Automate (Pro)** — schedule recurring exports and deliver them by email, webhook, or to a Craft asset volume.
-
-## Supported Output Formats
-
-| Format | Standard | Pro |
-| ------ | :------: | :-: |
-| CSV    |    ✓     |  ✓  |
-| JSON   |    ✓     |  ✓  |
-| XLSX   |    —     |  ✓  |
 
 ## Field Support
 
