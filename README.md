@@ -22,31 +22,23 @@
 
 Built for agencies, freelancers, and in-house Craft teams that repeatedly need clean exports without turning every request into bespoke development work.
 
-## Features
+## Supported Element Types
 
-- 📤 **Export the elements you actually use** — entries, users, categories, tags, and assets, plus Commerce orders, products, and variants in Pro.
-- 📝 **Export form submissions (Pro)** — [Formie](https://plugins.craftcms.com/formie) and [Wheelform](https://plugins.craftcms.com/wheelform) submissions, filtered by form.
-- 🧩 **Pick fields without code** — native attributes, custom fields, relation fields, and practical Matrix sub-field paths, all from one field picker.
-- 🔃 **Shape the output** — rename and reorder columns, and choose CSV, JSON, or XLSX.
-- 🔍 **Filter precisely** — by section, site, form, status, keyword, created date, relations, and selected field values where supported.
-- ⚡ **Start from presets** — one-click Commerce starting points (Order Ops, Catalog Feed, Inventory Feed) prefill sensible columns.
-- ♻️ **Reuse everything** — save export templates and run them again on demand.
-- ⏱️ **Scale safely** — small exports run immediately; larger ones queue and download later from run history.
-- 🤖 **Automate (Pro)** — schedule recurring exports and deliver them by email, webhook, or to a Craft asset volume.
+| Element Type     | Standard | Pro |
+| ---------------- | :------: | :-: |
+| Entries              |    ✓     |  ✓  |
+| Users                |    ✓     |  ✓  |
+| Categories           |    ✓     |  ✓  |
+| Tags                 |    ✓     |  ✓  |
+| Assets               |    ✓     |  ✓  |
+| Formie Submissions †  |    —     |  ✓  |
+| Wheelform Submissions †|   —     |  ✓  |
+| Commerce Orders ‡    |    —     |  ✓  |
+| Commerce Products ‡  |    —     |  ✓  |
+| Commerce Variants ‡  |    —     |  ✓  |
 
-## Screenshots
-
-<p align="center"><img src="docs/img/templates-index.png" alt="Templates index" width="800"></p>
-<p align="center"><em>The Exports index — every saved template, ready to run.</em></p>
-
-<p align="center"><img src="docs/img/template-builder.png" alt="Template builder with field picker" width="800"></p>
-<p align="center"><em>Build a template: choose an element type, pick fields, rename and reorder columns.</em></p>
-
-<p align="center"><img src="docs/img/run-history.png" alt="Run history" width="800"></p>
-<p align="center"><em>Run history with queued, completed, and failed runs.</em></p>
-
-<p align="center"><img src="docs/img/commerce-export.png" alt="Commerce order export" width="800"></p>
-<p align="center"><em>A Commerce order export template (Pro).</em></p>
+† Pro edition; available when the [Formie](https://plugins.craftcms.com/formie) or [Wheelform](https://plugins.craftcms.com/wheelform) plugin is installed and enabled.
+‡ Requires [Craft Commerce](https://plugins.craftcms.com/commerce) and the Pro edition.
 
 ## Requirements
 
@@ -79,23 +71,17 @@ Then grant the plugin permissions to the right user groups.
 8. Run the export.
 9. Download the completed file from run history.
 
-## Supported Element Types
+## Features
 
-| Element Type     | Standard | Pro |
-| ---------------- | :------: | :-: |
-| Entries              |    ✓     |  ✓  |
-| Users                |    ✓     |  ✓  |
-| Categories           |    ✓     |  ✓  |
-| Tags                 |    ✓     |  ✓  |
-| Assets               |    ✓     |  ✓  |
-| Formie Submissions †  |    —     |  ✓  |
-| Wheelform Submissions †|   —     |  ✓  |
-| Commerce Orders ‡    |    —     |  ✓  |
-| Commerce Products ‡  |    —     |  ✓  |
-| Commerce Variants ‡  |    —     |  ✓  |
-
-† Pro edition; available when the [Formie](https://plugins.craftcms.com/formie) or [Wheelform](https://plugins.craftcms.com/wheelform) plugin is installed and enabled.
-‡ Requires [Craft Commerce](https://plugins.craftcms.com/commerce) and the Pro edition.
+- 📤 **Export the elements you actually use** — entries, users, categories, tags, and assets, plus Commerce orders, products, and variants in Pro.
+- 📝 **Export form submissions (Pro)** — [Formie](https://plugins.craftcms.com/formie) and [Wheelform](https://plugins.craftcms.com/wheelform) submissions, filtered by form.
+- 🧩 **Pick fields without code** — native attributes, custom fields, relation fields, and practical Matrix sub-field paths, all from one field picker.
+- 🔃 **Shape the output** — rename and reorder columns, and choose CSV, JSON, or XLSX.
+- 🔍 **Filter precisely** — by section, site, form, status, keyword, created date, relations, and selected field values where supported.
+- ⚡ **Start from presets** — one-click Commerce starting points (Order Ops, Catalog Feed, Inventory Feed) prefill sensible columns.
+- ♻️ **Reuse everything** — save export templates and run them again on demand.
+- ⏱️ **Scale safely** — small exports run immediately; larger ones queue and download later from run history.
+- 🤖 **Automate (Pro)** — schedule recurring exports and deliver them by email, webhook, or to a Craft asset volume.
 
 ## Supported Output Formats
 
@@ -116,6 +102,20 @@ The field picker includes:
 - practical Matrix sub-field paths
 
 Dates are normalized to `Y-m-d H:i:s`. CSV output uses native `fputcsv()` escaping for commas, quotes, and multiline values. Relation values export as comma-separated readable values in CSV, and as arrays where practical in JSON.
+
+## Screenshots
+
+<p align="center"><img src="docs/img/templates-index.png" alt="Templates index" width="800"></p>
+<p align="center"><em>The Exports index — every saved template, ready to run.</em></p>
+
+<p align="center"><img src="docs/img/template-builder.png" alt="Template builder with field picker" width="800"></p>
+<p align="center"><em>Build a template: choose an element type, pick fields, rename and reorder columns.</em></p>
+
+<p align="center"><img src="docs/img/run-history.png" alt="Run history" width="800"></p>
+<p align="center"><em>Run history with queued, completed, and failed runs.</em></p>
+
+<p align="center"><img src="docs/img/commerce-export.png" alt="Commerce order export" width="800"></p>
+<p align="center"><em>A Commerce order export template (Pro).</em></p>
 
 ## Queue Behavior
 
@@ -164,6 +164,17 @@ Data Export Builder declares native Craft plugin editions:
 | Pro      | $69   |
 
 Set the edition through Craft plugin editions, not environment variables. Craft stores the active edition in project config; change it via `plugins.data-export-builder.edition` when testing edition-gated behavior locally. See [docs/pricing-edition-notes.md](docs/pricing-edition-notes.md) for edition rationale and pricing direction after launch validation.
+
+## Known Limitations
+
+- Keyword filters use Craft search to match rows, but exports keep a stable export order rather than search-relevance ranking.
+- Matrix flattening is practical, not exhaustive.
+
+## Roadmap
+
+- field transformations
+- CLI triggers
+- richer Commerce mappings
 
 ## Support
 
